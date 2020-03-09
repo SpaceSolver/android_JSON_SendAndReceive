@@ -13,8 +13,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -70,10 +70,12 @@ public class MainActivity extends AppCompatActivity {
         {
             Log.d("Debug", "Response is: OK\n");
 
+            // タイトル（地点）
             TextView textview = findViewById(R.id.WetherInfoText);
             String title = response.getString("title");
             textview.setText(title);
 
+            // 天気
             TextView WeaterTextView = findViewById(R.id.weathertext);
             JSONArray datas = response.getJSONArray("forecasts");
             for (int i = 0; i < datas.length(); i++) {
@@ -82,9 +84,16 @@ public class MainActivity extends AppCompatActivity {
                 WeaterTextView.setText(weater);
             }
 
-            //ImageView imageView = findViewById(R.id.weatherImage);
-            //JSONObject item2 = response.getJSONObject("item");
-            //String weater = item2.get("url");
+            // 天気画像（GIF）
+            ImageView imageView = findViewById(R.id.weatherImage);
+
+            // URL取得
+            JSONObject data = datas.getJSONObject(0);
+            JSONObject image = data.getJSONObject("image");
+            String weaterUrl = image.getString("url");
+
+            // URLからgif画像を表示(GlideLibを使用)
+            Glide.with(this).load(weaterUrl).into(imageView);
         }
         catch (JSONException e)
         {
