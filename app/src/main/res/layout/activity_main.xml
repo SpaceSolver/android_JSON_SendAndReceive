@@ -22,12 +22,36 @@
 
     <TextView
         android:id="@+id/WetherInfoText"
-        android:layout_width="314dp"
-        android:layout_height="265dp"
+        android:layout_width="323dp"
+        android:layout_height="49dp"
         android:layout_marginTop="80dp"
+        android:textAlignment="center"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/weathertext"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="48dp"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/WetherInfoText" />
+
+    <ImageView
+        android:id="@+id/weatherImage"
+        android:layout_width="136dp"
+        android:layout_height="153dp"
+        android:layout_marginTop="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/weathertext"
+        app:srcCompat="@android:drawable/ic_menu_crop" />
 </androidx.constraintlayout.widget.ConstraintLayout>

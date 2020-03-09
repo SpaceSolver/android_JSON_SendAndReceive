@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -15,6 +16,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
@@ -33,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         try
         {
             // 東京都の天気情報
-            String url = "http://weather.livedoor.com/forecast/webservice/json/v1?city=130010";
+            String url = "http://weather.livedoor.com/forecast/webservice/json/v1?city=270000";
 
             mQueue = Volley.newRequestQueue(this);
             mQueue.add(new JsonObjectRequest(Request.Method.GET, url, null,
@@ -43,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                         public void onResponse(JSONObject response)
                         {
                             // JSONObjectのパース、List、Viewへの追加等
-                            DispWetherInfo(response);
+                            ParseJSON(response);
                         }
                     },
                     new Response.ErrorListener()
@@ -61,15 +64,37 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void DispWetherInfo(JSONObject response)
+    public void ParseJSON(JSONObject response)
     {
-        TextView textview = findViewById(R.id.WetherInfoText);
-        textview.setText("Response is: OK");
+        try
+        {
+            Log.d("Debug", "Response is: OK\n");
+
+            TextView textview = findViewById(R.id.WetherInfoText);
+            String title = response.getString("title");
+            textview.setText(title);
+
+            TextView WeaterTextView = findViewById(R.id.weathertext);
+            JSONArray datas = response.getJSONArray("forecasts");
+            for (int i = 0; i < datas.length(); i++) {
+                JSONObject data = datas.getJSONObject(i);
+                String weater = data.getString("telop");
+                WeaterTextView.setText(weater);
+            }
+
+            //ImageView imageView = findViewById(R.id.weatherImage);
+            //JSONObject item2 = response.getJSONObject("item");
+            //String weater = item2.get("url");
+        }
+        catch (JSONException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     public void DispWetherInfoErr(VolleyError error)
     {
         TextView textview = findViewById(R.id.WetherInfoText);
-        textview.setText("Response is: NG" + error);
+        textview.setText("Response is: NG\n" + error);
     }
 }
