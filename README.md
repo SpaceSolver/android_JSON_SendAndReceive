@@ -28,6 +28,15 @@ livedoorの天気WebAPIサービスに接続し、JSON形式のデータを取�
   ３．JSON形式にてレスポンスが返るので、各Viewにデータを設定していく。  
   ４．GIFファイルがURLからImageに変換して代入。  
 
+### リスエスト情報  
+URL:livedoorの天気WebAPIサーバー  
+http://weather.livedoor.com/forecast/webservice/json/v1
+
+大阪市の天気情報を上記URLの後ろにデータを追加する。  
+大阪市：?city=270000
+
+[天気情報API情報ページ](http://weather.livedoor.com/weather_hacks/webservice)
+
 ## JSON形式について
   特に専用ライブラリを使わずとも、レスポンスデータを”JSONObject”の型とすることで使用することができる。  
   以下の処理でJSONデータを取得できます。  
